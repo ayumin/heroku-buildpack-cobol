@@ -1,16 +1,35 @@
-#!/bin/sh
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
 
-indent() {
+set -e
+set -o pipefail
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+AWS_BACKET=http://dl.dropbox.com/u/587135
+PACKAGE=heroku-buildpack-cobol.tar.gz
+
+function indent() {
   sed -u 's/^/       /'
 }
 
-echo "-----> Found a hello.txt"
+echo "-----> Found COBOL programs"
 
-# if hello.txt is empty, abort the build
-if [ ! -s $1/hello.txt ]; then
-  echo "hello.txt was empty" | indent
-  exit 1
+cd $CACHE_DIR
+curl -O http://dl.dropbox.com/u/587135/heroku-buildpack-cobol.tar.gz
+tar zcvf heroku-buildpack-cobol.tar.gz
+cp -R usr /app
+
+PATH=/app/usr/bin:$PATH
+COBC=/app/usr/bin/cobc
+
+cd $BUILD_DIR
+if [ -f configure ]; then
+  ./configure
+fi
+if [ -f Makefile ]; then
+  make
+else
+  $COBC *.cob
 fi
 
-# replace hello with goodbye in a new file
-cat $1/hello.txt | sed -e "s/[Hh]ello/Goodbye/g" > $1/goodbye.txt
