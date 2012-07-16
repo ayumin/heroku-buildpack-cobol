@@ -1,10 +1,8 @@
 #!/bin/sh
 
 # this pack is valid for apps with a hello.txt in the root
-echo $1
-echo $2
 if [ -f $1/hello.txt ]; then
-  echo "HelloFramework"
+  echo "COBOL program(s)"
   exit 0
 else
   exit 1
