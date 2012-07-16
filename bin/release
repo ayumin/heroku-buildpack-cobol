@@ -3,7 +3,7 @@
 cat << EOF
 ---
 config_vars:
-  PATH: bin:/usr/bin:/bin
+  PATH: /app/usr/bin:bin:/usr/bin:/bin
 default_process_types:
   cobol: cat hello.txt
 EOF
