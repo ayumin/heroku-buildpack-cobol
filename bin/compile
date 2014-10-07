@@ -16,7 +16,7 @@ function indent() {
 echo "-----> Found COBOL programs"
 mkdir -p $CACHE_DIR
 cd $CACHE_DIR
-curl -O http://dl.dropbox.com/u/587135/heroku-buildpack-cobol.tar.gz
+curl -O https://github.com/ayumin/heroku-buildpack-cobol/blob/master/archives/heroku-buildpack-cobol.tar.gz
 tar zxvf heroku-buildpack-cobol.tar.gz
 cp -R usr /app
 
